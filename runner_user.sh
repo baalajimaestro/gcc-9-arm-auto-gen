@@ -48,23 +48,23 @@ export LOC=$(cat /tmp/loc)
 run()
 {
 echo "Starting build!"
-git clone https://github.com/baalajimaestro/ct-ng-configs -b GCC-9 > /dev/null 2>&1
+git clone https://github.com/baalajimaestro/ct-ng-configs -b GCC-9-ARM > /dev/null 2>&1
 cd ct-ng-configs
-ct-ng build
+ct-ng build > /dev/null 2>&1
 echo "Build finished!"
 }
 
 ##### Here's the blecc megik
-push()
+push_gcc()
 {
 sudo chmod -R 777 $HOME/x-tools
 cd $HOME/x-tools/aarch64.*
 git init
 git add .
-git checkout -b "$(date +%d%m%y)-ARM-9.1"
+git checkout -b "$(date +%d%m%y)"
 git commit -m "[MaestroCI]: ARM-GCC-9.1 $(date +%d%m%y)" --signoff
-git remote add origin https://baalajimaestro:$(cat /tmp/GH_TOKEN)@github.com/baalajimaestro/aarch64-maestro-linux-android.git
-git push --force origin "$(date +%d%m%y)-ARM-9.1"
+git remote add origin https://baalajimaestro:$(cat /tmp/GH_TOKEN)@github.com/baalajimaestro/arm-maestro-linux-gnueabi.git
+git push --force origin "$(date +%d%m%y)"
 tg_sendinfo "<code>Checked out and pushed GCC-ARM-9.1</code>"
 echo "Job Successful!"
 }
@@ -72,4 +72,4 @@ echo "Job Successful!"
 build_env
 build_conf
 run
-push
+push_gcc
