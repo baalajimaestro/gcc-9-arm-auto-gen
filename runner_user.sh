@@ -58,7 +58,8 @@ echo "Build finished!"
 push_gcc()
 {
 sudo chmod -R 777 $HOME/x-tools
-cd $HOME/x-tools/aarch64.*
+cd $HOME/x-tools/arm-maestro-linux-gnueabi
+
 git init
 git add .
 git checkout -b "$(date +%d%m%y)"
